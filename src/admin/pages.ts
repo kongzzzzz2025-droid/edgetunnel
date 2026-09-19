@@ -73,35 +73,6 @@ export function html1101(host: string, accessIP: string): string {
 <!--[if lt IE 9]><link rel="stylesheet" id='cf_styles-ie-css' href="/cdn-cgi/styles/cf.errors.ie.css" /><![endif]-->
 <style>body{margin:0;padding:0}</style>
 
-<!-- 1. 彻底斩断并屏蔽后台高频刷屏打印的假警告，解禁 Ctrl+V -->
-<script data-cfasync="false">
-  (function() {
-    // 强制阻止页面原生脚本拦截控制台的 paste 事件
-    window.addEventListener('paste', function(e) {
-      e.stopPropagation();
-    }, true);
-
-    // 强行把针对控制台的干扰日志过滤并丢弃
-    const originalLog = console.log;
-    console.log = function(...args) {
-      if (args && args[0] && typeof args[0] === 'string' && (args[0].includes('Don’t paste code') || args[0].includes('允许粘贴'))) {
-        return; 
-      }
-      originalLog.apply(console, args);
-    };
-  })();
-</script>
-
-<!-- 2. 注入本地原生二维码后备逻辑，防止第三方 CDN 挂掉导致不弹二维码 -->
-<script data-cfasync="false">
-  window.addEventListener('DOMContentLoaded', function () {
-    // 检查全局变量以确保二维码插件已成功就绪
-    if (typeof QRCode === 'undefined') {
-      console.warn('⚠️ 主二维码 CDN 加载失败，正在启动弹性替代渲染方案...');
-      // 可以在此处加入备用公共 CDN 节点的动态加载逻辑
-    }
-  });
-</script>
 
 <!--[if gte IE 10]><!-->
 <script>
