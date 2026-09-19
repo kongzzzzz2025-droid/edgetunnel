@@ -85,23 +85,6 @@ Connection: keep-alive\r
 			font-family: Tahoma, Verdana, Arial, sans-serif;
 		}
 	</style>
-	<script data-cfasync="false">
-		(function() {
-			// 1. 阻止页面上的脚本拦截我们的 paste 粘贴事件
-			window.addEventListener('paste', function(e) {
-				e.stopPropagation();
-			}, true);
-
-			// 2. 拦截并消音该网页后台定时器高频打印的那个假 Warning
-			const originalLog = console.log;
-			console.log = function(...args) {
-				if (args && typeof args[0] === 'string' && args[0].includes('Don’t paste code')) {
-					return; // 直接丢弃，不让它输出
-				}
-				originalLog.apply(console, args);
-			};
-		})();
-	</script>
 	</head>
 	<body>
 	<h1>Welcome to nginx!</h1>
